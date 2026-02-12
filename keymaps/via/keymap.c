@@ -7,6 +7,8 @@ enum sofle_layers {
     _COLEMAK,
     _QWERTY,
     _GAMING,
+    // _SOLIDWORKS,
+    _CAPTUREONE,
     _LOWER,
     _RAISE,
     _MOUSE,
@@ -23,6 +25,9 @@ enum custom_keycodes {
 #define KC_COLEMAK DF(_COLEMAK)
 #define KC_QWERTY DF(_QWERTY)
 #define KC_GAMING DF(_GAMING)
+#define KC_CAPTUREONE DF(_CAPTUREONE)
+
+// #define KC_SOLIDWORKS DF(_SOLIDWORKS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -80,6 +85,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 
+// [_SOLIDWORKS] = LAYOUT(
+//   _______, KC_F13, KC_7, KC_8, KC_9 , KC_F17,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+//   _______, KC_F14 , KC_4 ,KC_5 , KC_6 , KC_F18,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+//   _______, KC_F15 , KC_1  ,KC_2 , KC_3 , KC_F19,                           _______,  _______  , _______  ,  _______,  _______ ,_______,
+//   _______, KC_F16 , KC_0 ,KC_DOT ,KC_ENTER , KC_F20,  _______ ,_______ ,                         _______,  _______  , _______,  _______ ,  _______ ,_______,
+//                        _______,  _______, _______, _______, KC_ENTER,       _______, _______, _______, _______, _______
+// ),
+
+[_CAPTUREONE] = LAYOUT(
+  _______, _______, _______, _______, _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+  _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+  _______, _______ , _______  , _______ , _______ , _______,                           _______,  _______  , _______  ,  _______,  _______ ,_______,
+  _______, _______ , _______ , _______ , _______ , _______,  _______ ,_______ ,                         _______,  _______  , _______,  _______ ,  _______ ,_______,
+                       _______,  _______, _______, _______, _______,       _______, _______, _______, _______, _______
+),
+
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
@@ -98,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
     KC_GRV,   KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_F12,
     _______,   KC_1, KC_2, KC_3, KC_4, KC_5,                      KC_6, KC_7, KC_8, KC_9, KC_0, KC_PIPE,
-    _______,   _______,KC_EQL, KC_MINUS , KC_PLUS , _______ ,  _______ ,_______ ,                    _______ , _______ , _______ , _______ ,KC_BSLS, _______,
+    _______,   KC_GRAVE,KC_EQUAL, KC_MINUS, KC_PLUS, _______,  _______ ,_______ ,                    _______ , _______ , _______ , _______ ,KC_BSLS, _______,
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 /* RAISE
@@ -232,6 +253,7 @@ const uint16_t PROGMEM xc_plus[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM ar_backspace[] = {KC_A, KC_R, COMBO_END};
 const uint16_t PROGMEM zx_screenshot[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM qw_escape[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM st_enter[] = {KC_S, KC_T, COMBO_END};
 
 const uint16_t PROGMEM cd_undo[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM xcd_redo[] = {KC_X, KC_C, KC_D, COMBO_END};
@@ -243,6 +265,11 @@ const uint16_t PROGMEM jl_rbrace[] = {KC_J, KC_L, COMBO_END};
 const uint16_t PROGMEM mn_rparen[] = {KC_M, KC_N, COMBO_END};
 const uint16_t PROGMEM kh_rbracket[] = {KC_K, KC_H, COMBO_END};
 
+const uint16_t PROGMEM num12_colemak[] = {KC_1, KC_2, COMBO_END};
+const uint16_t PROGMEM num23_qwerty[] = {KC_2, KC_3, COMBO_END};
+const uint16_t PROGMEM num34_gaming[] = {KC_3, KC_4, COMBO_END};
+// const uint16_t PROGMEM num45_solidworks[] = {KC_4, KC_5, COMBO_END};
+const uint16_t PROGMEM num45_captureone[] = {KC_4, KC_5, COMBO_END};
 
 
 combo_t key_combos[] = {
@@ -253,6 +280,7 @@ combo_t key_combos[] = {
     COMBO(ar_backspace, KC_BSPC),
     COMBO(zx_screenshot, KC_PSCR),
     COMBO(qw_escape, KC_ESC),
+    COMBO(st_enter, KC_ENT),
 
     COMBO(cd_undo, LCTL(KC_Z)),
     COMBO(xcd_redo, LCTL(KC_Y)),
@@ -264,4 +292,9 @@ combo_t key_combos[] = {
     COMBO(mn_rparen, KC_RPRN),
     COMBO(kh_rbracket, KC_RBRC),
     
+    COMBO(num12_colemak, KC_COLEMAK),
+    COMBO(num23_qwerty, KC_QWERTY),
+    COMBO(num34_gaming, KC_GAMING),
+    COMBO(num45_captureone, KC_CAPTUREONE),
+    // COMBO(num45_solidworks, KC_SOLIDWORKS),
 };

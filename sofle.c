@@ -76,6 +76,9 @@ void print_status_narrow(void) {
         case 2:
             oled_write_ln_P(PSTR("GMNG"), false);
             break;
+        case 3:
+            oled_write_ln_P(PSTR("CONE"), false);
+            break;
         default:
             oled_write_P(PSTR("Mod\n"), false);
             break;
@@ -87,13 +90,13 @@ void print_status_narrow(void) {
         case 1:
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case 3:
+        case DYNAMIC_KEYMAP_LAYER_COUNT-3:
             oled_write_P(PSTR("Lower"), false);
             break;
-        case 4:
+        case DYNAMIC_KEYMAP_LAYER_COUNT-2:
             oled_write_P(PSTR("Raise"), false);
             break;
-        case 5:
+        case DYNAMIC_KEYMAP_LAYER_COUNT-1:
             oled_write_P(PSTR("Mouse"), false);
             break;
         default:
@@ -123,19 +126,37 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
+    if (get_highest_layer(default_layer_state) == 3) { //custom behavior for CaptureOne layer
+        if (index == 0) {
+            if (clockwise) {
+                tap_code(KC_F14);
+            } else {
+                tap_code(KC_F13);
+            }
+        } else if (index == 1) {
+            if (clockwise) {
+                tap_code(KC_RIGHT);
+            } else {
+                tap_code(KC_LEFT);
+            }
         }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_F14);
-        } else {
-            tap_code(KC_F13);
-        }
+        return true;
     }
-    return true;
+    else{ //default behavior
+        if (index == 0) {
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        } else if (index == 1) {
+            if (clockwise) {
+                tap_code(KC_F24);
+            } else {
+                tap_code(KC_F23);
+            }
+        }
+        return true;
+    }
 }
 #endif
